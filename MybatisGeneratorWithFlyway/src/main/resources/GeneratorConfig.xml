@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	<!-- database driver放的位置 -->
+	<classPathEntry
+		location="D:/mysql-connector-java-8.0.28.jar" />
+	<!--id 可自訂名稱 -->
+	<context id="my" targetRuntime="MyBatis3">
+		<!-- value=true可以關閉產生註解 -->
+		<commentGenerator>
+			<!--關閉產生日期 -->
+			<property name="suppressDate" value="true" />
+			<!-- 關閉說明 -->
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+		<!-- 連接database的所需資訊 -->
+
+		<jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+			connectionURL="jdbc:mysql://localhost:3306/" userId="root"
+			password="123456">
+		</jdbcConnection>
+
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+		<!--指定產生model的位置 -->
+		<javaModelGenerator targetPackage="com.yesee.Model"
+			targetProject="MybatisGeneratorWithFlyway/src/main/java">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+		<!--指定產生Mapper的位置 -->
+		<sqlMapGenerator targetPackage="com.yesee.Mapper"
+			targetProject="MybatisGeneratorWithFlyway/src/main/java">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+		<!--指定產生Mapper XML的位置 -->
+		<javaClientGenerator type="XMLMAPPER"
+			targetPackage="com.yesee.Mapper"
+			targetProject="MybatisGeneratorWithFlyway/src/main/java">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+		<!--選擇Database中需要產生的table -->
+		<!--domainObjectName為專案中產生model的名稱 -->
+		<table schema="test" tableName="product"
+			domainObjectName="Product">
+			<!--useActualColumnNames 使用table裡的column名稱 -->
+			<property name="useActualColumnNames" value="true" />
+			<!--有設定自動跳號的column名稱 -->
+			<!--sqlStatement,SQl自動跳號的程式碼會隨著database的品牌而變化， -->
+			<generatedKey column="ID" sqlStatement="MySql"
+				identity="true" />
+			<!--可以設定忽略的column，在model中不會產生 -->
+			<ignoreColumn column="nothing" />
+
+
+		</table>
+
+	</context>
+</generatorConfiguration>
